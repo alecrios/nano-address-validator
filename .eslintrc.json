@@ -1,0 +1,19 @@
+{
+	"env": {"browser": true, "mocha": true},
+	"extends": "airbnb-base",
+	"rules": {
+		"indent": ["error", "tab"],
+		"no-tabs": 0,
+		"quote-props": ["warn", "consistent"],
+		"arrow-parens": ["warn", "always"],
+		"no-unused-expressions": [2, {"allowTernary": true}],
+		"object-curly-spacing": ["warn", "never"],
+		"object-curly-newline": ["warn", {
+			"ObjectExpression": {"multiline": true, "consistent": true},
+			"ObjectPattern": {"multiline": true, "consistent": true},
+			"ImportDeclaration": {"multiline": true, "consistent": true},
+			"ExportDeclaration": {"multiline": true, "consistent": true}
+		}],
+		"import/no-unresolved": "off"
+	}
+}
