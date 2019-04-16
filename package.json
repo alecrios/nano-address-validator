@@ -55,5 +55,9 @@
   "nyc": {
     "sourceMap": false,
     "instrument": false
+  },
+  "dependencies": {
+    "blakejs": "^1.1.0",
+    "nano-base32": "^1.0.1"
   }
 }

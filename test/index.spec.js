@@ -1,6 +1,34 @@
 import {expect} from 'chai';
 import NanoAddressValidator from '../lib/nano-address-validator';
 
+const validAddresses = [
+	'nano_14cuejfpr58epnpxenirusimsrbwxbecin7a3izq1injptecc31qsjwquoe6',
+	'nano_3jwrszth46rk1mu7rmb4rhm54us8yg1gw3ipodftqtikf5yqdyr7471nsg1k',
+	'nano_3uip1jmeo4irjuua9xiyosq6fkgogwd6bf5uqopb1m6mfq6g3n8cna6h3tuk',
+	'nano_1ipx847tk8o46pwxt5qjdbncjqcbwcc1rrmqnkztrfjy5k7z4imsrata9est',
+	'nano_19773kh38t6dtqsseq8oa5jk8o7ycas3t77d1xznoktdipcbofkzuhcjzeba',
+	'nano_3ing74j39b544e9w4yrur9fzuwges71ddo83ahgskzhzaa3ytzr7ra3jfsgi',
+	'nano_3wtbdcjrgro1cc87bnnia6ht1jqu96q9km6qttrza7ioxbxr7yqxzf1psugd',
+	'nano_1m1e8m7ryf4zhx4xk9tegfxt8g5mpertjwfowtjanpjji1ttnkseunagbspj',
+	'nano_3hua6a116y4jmbeaf63zi6mn8gf5s4n3eyxa3q4m5ibabi6pmegfubky3wpi',
+	'nano_1azif31ho333hnfb39acaua7jcgha4cjio4n5rc543jain37j8n7dqi6g8jo',
+	'nano_3dx4o17y4xcg5aeo1h7an5z8onk139hhs9oa37xkb1uzqnxfzphzpfjwyw4x',
+	'nano_1b7t1fxn8uuj51dsxfi6mzp7mb3m9pocyznqzh9zfb1etzkdufgpdinq553q',
+	'nano_38zpmsje8de6tgkan8yf3t86e31444qkznxyah6zqtqckex1nec97wo94xc9',
+	'nano_36gyiognuibzsnsuqrntnpqa51xic5iickdeggcaugb79uh3nmrdtf7gg4t6',
+	'nano_1h31pb3b4puzuy9ijc4yucce73gewd3bm3zpugiq46sbwsnzw8cge6hxnfzb',
+	'nano_19so3616wepcwjj868z7pfnsciegjyp68omt3c13qoepnccskgyjayjksyrc',
+	'nano_1niabkx3gbxit5j5yyqcpas71dkffggbr6zpd3heui8rpoocm5xqbdwq44oh',
+	'nano_3re5wi4pjkpdjs9z1dn7oxitcapimkoyp1b1bqh1tj4e1hbpcj6h41zz8biz',
+	'nano_3iirom9oxgqeu6xmsun9rq8b4ybb783mpk4aqdsojo9zi66yi1y6kqw1qmt3',
+	'nano_36xysg5opeeaowmeazjd9oy6xtrexy1cf65jw77i5kt83do94twe918ag6dp',
+	'xrb_3k5grtxarxfooa9xf5qhaspaeixw939aaab6z391yzpyo8tgoh8x9kko3bfm',
+	'xrb_35syfzh8yx5zaypmoumtfe6pe9n5d9fo1f5b8in3ks3kcby8bwkm754gi31j',
+	'xrb_34m3ts1rpirfubibcbmj1ds8kjqdi7ypihirqw4fnqxthh6er33m7p4y93zx',
+	'xrb_3winfya6ngotsxndyyf4o1ue57ff1rmtwiz81w6qez6hxfy4fgm5ybmhjzrt',
+	'xrb_3eeio87pksrgndzcrdbasnhmmoyyqikemndrc8au8ygyt9xjp3rdjcyh6ia1',
+];
+
 describe('NanoAddressValidator', () => {
 	describe('constructor', () => {
 		it('should throw error for invalid types', () => {
@@ -10,21 +38,21 @@ describe('NanoAddressValidator', () => {
 		});
 
 		it('should provide default prefixes if not provided', () => {
-			const prefixes = ['nano', 'xrb'];
-			expect(() => new NanoAddressValidator(prefixes)).to.not.throw();
-			expect(new NanoAddressValidator().prefixes).to.deep.equal(prefixes);
+			const prefix = ['nano', 'xrb'];
+			expect(() => new NanoAddressValidator(prefix)).to.not.throw();
+			expect(new NanoAddressValidator().prefix).to.deep.equal(prefix);
 		});
 
 		it('should support a prefix array', () => {
-			const prefixes = ['foo', 'bar', 'baz'];
-			expect(() => new NanoAddressValidator(prefixes)).to.not.throw();
-			expect(new NanoAddressValidator(prefixes).prefixes).to.deep.equal(prefixes);
+			const prefix = ['foo', 'bar', 'baz'];
+			expect(() => new NanoAddressValidator(prefix)).to.not.throw();
+			expect(new NanoAddressValidator(prefix).prefix).to.deep.equal(prefix);
 		});
 
 		it('should support a prefix string', () => {
 			const prefix = 'foo';
 			expect(() => new NanoAddressValidator(prefix)).to.not.throw();
-			expect(new NanoAddressValidator(prefix).prefixes).to.deep.equal([prefix]);
+			expect(new NanoAddressValidator(prefix).prefix).to.deep.equal([prefix]);
 		});
 	});
 
@@ -141,28 +169,24 @@ describe('NanoAddressValidator', () => {
 			});
 		});
 
-		it('should return true for valid addresses', () => {
+		it('should return true for syntactically valid addresses with good checksums', () => {
 			const validator = new NanoAddressValidator();
 
-			const addresses = [
-				'xrb_3arg3asgtigae3xckabaaewkx3bzsh7nwz7jkmjos79ihyaxwphhm6qgjps4',
-				'xrb_1stofnrxuz3cai7ze75o174bpm7scwj9jn3nxsn8ntzg784jf1gzn1jjdkou',
-				'xrb_1q3hqecaw15cjt7thbtxu3pbzr1eihtzzpzxguoc37bj1wc5ffoh7w74gi6p',
-				'xrb_3dmtrrws3pocycmbqwawk6xs7446qxa36fcncush4s1pejk16ksbmakis78m',
-				'xrb_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k',
-				'xrb_1awsn43we17c1oshdru4azeqjz9wii41dy8npubm4rg11so7dx3jtqgoeahy',
-				'xrb_1anrzcuwe64rwxzcco8dkhpyxpi8kd7zsjc1oeimpc3ppca4mrjtwnqposrs',
-				'nano_3arg3asgtigae3xckabaaewkx3bzsh7nwz7jkmjos79ihyaxwphhm6qgjps4',
-				'nano_1stofnrxuz3cai7ze75o174bpm7scwj9jn3nxsn8ntzg784jf1gzn1jjdkou',
-				'nano_1q3hqecaw15cjt7thbtxu3pbzr1eihtzzpzxguoc37bj1wc5ffoh7w74gi6p',
-				'nano_3dmtrrws3pocycmbqwawk6xs7446qxa36fcncush4s1pejk16ksbmakis78m',
-				'nano_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k',
-				'nano_1awsn43we17c1oshdru4azeqjz9wii41dy8npubm4rg11so7dx3jtqgoeahy',
-				'nano_1anrzcuwe64rwxzcco8dkhpyxpi8kd7zsjc1oeimpc3ppca4mrjtwnqposrs',
-			];
-
-			addresses.forEach((address) => {
+			validAddresses.forEach((address) => {
 				expect(validator.isValid(address)).to.equal(true);
+			});
+		});
+
+		it('should return false for syntactically valid addresses with bad checksums', () => {
+			const validator = new NanoAddressValidator();
+
+			validAddresses.forEach((address) => {
+				// Change the last character to invalide the checksum
+				const addressWithBadChecksum = address.slice(-1) !== 'a'
+					? address.replace(/.$/, 'a')
+					: address.replace(/.$/, 'b');
+
+				expect(validator.isValid(addressWithBadChecksum)).to.equal(false);
 			});
 		});
 	});
