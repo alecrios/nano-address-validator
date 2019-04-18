@@ -181,7 +181,7 @@ describe('NanoAddressValidator', () => {
 			const validator = new NanoAddressValidator();
 
 			validAddresses.forEach((address) => {
-				// Change the last character to invalide the checksum
+				// Change the last character to invalidate the checksum
 				const addressWithBadChecksum = address.slice(-1) !== 'a'
 					? address.replace(/.$/, 'a')
 					: address.replace(/.$/, 'b');

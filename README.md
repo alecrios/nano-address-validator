@@ -2,28 +2,32 @@
 
 Nano Address Validator is a thoroughly-tested library for validating addresses of the [Nano](https://nano.org/en) cryptocurrency. It can also validate addresses of Nano forks, such as [Banano](https://banano.cc/), by passing its custom prefix as a parameter.
 
-## Specifications
+## Address Specifications
 
-A valid Nano address is a string that meets the following specifications:
+```
+nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3
+└─┬─┘└────────────────────────┬─────────────────────────┘└──┬───┘
+  A                           B                             C
+```
 
-### Begins with `nano_` (current prefix) or `xrb_` (legacy prefix)
+**A. Prefix** - An address must begin with either `nano_` (modern prefix) or `xrb_` (legacy prefix).
 
-As of Nano Node v19, addresses are emitted with the `nano_` prefix, although the original `xrb_` prefix will continue to be supported.
+Because Nano was originally named RaiBlocks, the prefix `xrb_` was used (the `x` denoting a non-national currency, per the ISO 4217 currency code standard). After rebranding, the `nano_` prefix was introduced. As of Nano Node v19, the legacy prefix is deprecated, though it will continue to be supported.
 
-### Continues with a 52-character public key (the first of which is a `1` or `3`)
+**B. Public Key** - An address must contain a 52-character encoded public key, which begins with either `1` or `3`.
 
 A raw address is a 256-bit unsigned integer in hexadecimal format. This is translated into a 260-bit number (padded at the start with four zeros) and encoded into a human-friendly string using a special base32 algorithm. This algorithm divides the 260-bit number into 52 5-bit segments and maps each segment to a character in an alphabet (`13456789abcdefghijkmnopqrstuwxyz`) that omits characters easily confused for others (`02lv`). Because the first segment is padded with zeros, its pattern is either `00000` (`1`) or `00001` (`3`). Thus, the encoded public key always begins with one of those characters.
 
-### Continues with an 8-character checksum
+**C. Checksum** - An address must contain an 8-character encoded checksum of the public key.
 
 The address contains a checksum of the public key in order to prevent typographical errors. A hash is generated from the unencoded public key using Blake2b with an 8-bit digest, which is then encoded using the same base32 algorithm as the public key and appended to the address. Thus, the final 8 characters of an address must match the derived checksum of the public key.
 
-## Validation
+## Validation Process
 
-The validation process consists of:
+The validation process consists of two major operations:
 
-1. Verifying that the address is syntactically correct as far as prefix, structure, and alphabet.
-2. Deriving the checksum of the public key and verifying that it matches the provided checksum.
+1. Verifying that the address is syntactically correct as far as prefix, structure, length, and alphabet.
+2. Deriving the checksum of the public key and verifying that it matches the checksum provided within the address.
 
 ## Installation
 
