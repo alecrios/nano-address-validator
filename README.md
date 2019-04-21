@@ -38,50 +38,39 @@ npm install nano-address-validator --save
 ## Examples
 
 ```js
-import NanoAddressValidator from 'nano-address-validator';
+import isValid from 'nano-address-validator';
+
+const nanoAddress = 'nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3';
+const bananoAddress = 'ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr';
 
 // Validate Nano address
-const nanoAddressValidator = new NanoAddressValidator();
-const nanoAddress = 'nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3';
-console.log(nanoAddressValidator.isValid(nanoAddress)); // true
+isValid(nanoAddress); // true
 
 // Validate Banano address
-const bananoAddressValidator = new NanoAddressValidator('ban');
-const bananoAddress = 'ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr';
-console.log(bananoAddressValidator.isValid(bananoAddress)); // true
+isValid(bananoAddress, 'ban'); // true
+
+// Validate Nano/Banano addresses
+isValid(nanoAddress, ['ban', 'nano', 'xrb']); // true
+isValid(bananoAddress, ['ban', 'nano', 'xrb']); // true
 ```
 
 ## API
 
-### `NanoAddressValidator([prefix])`
-
-Creates a new instance.
-
-#### Arguments
-
-- **prefix (_String_|_String[]_)**: The allowed prefix(es).
-
-#### Returns
-
-- **(_Object_)**: The newly created instance.
-
-#### Exceptions
-
-- **TypeError**: Prefix must be a string or an array of strings.
-
-### `NanoAddressValidator.isValid(address)`
+### `isValid(address, [prefix=['nano', 'xrb']])`
 
 Checks whether an address is valid.
 
 #### Arguments
 
 - **address (_String_)**: The address to check.
-
-#### Returns
-
-- **(_Boolean_)**: Whether the address is valid.
+- **prefix (_String_|_String[]_)**: The allowed prefix(es).
 
 #### Exceptions
 
 - **Error**: Address must be defined.
 - **TypeError**: Address must be a string.
+- **TypeError**: Prefix must be a string or an array of strings.
+
+#### Returns
+
+- **(_Boolean_)**: Whether the address is valid.
