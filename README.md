@@ -1,6 +1,6 @@
 # Nano Address Validator
 
-Nano Address Validator is a thoroughly-tested library for validating addresses of the [Nano](https://nano.org/en) cryptocurrency. Its process consists of not only syntax analysis but also checksum verification. It can also validate addresses of Nano forks, such as [Banano](https://banano.cc/), by accepting any number of allowed prefixes.
+Nano Address Validator is a thoroughly-tested library for validating addresses of the [Nano](https://nano.org/en) cryptocurrency. Its process consists of not only syntax analysis but also checksum verification. It can even validate addresses of Nano forks, such as [Banano](https://banano.cc/), by accepting any number of allowed prefixes.
 
 ## Address Specifications
 
@@ -56,7 +56,7 @@ isValid(bananoAddress, ['ban', 'nano', 'xrb']); // true
 
 ## API
 
-### `isValid(address, [prefix=['nano', 'xrb']])`
+### `isValid(address, [prefix = ['nano', 'xrb']])`
 
 Checks whether an address is valid.
 
