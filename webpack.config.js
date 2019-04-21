@@ -17,24 +17,24 @@ if (env === 'build') {
 const config = {
 	mode,
 	entry: `${__dirname}/src/index.js`,
-	devtool: 'inline-source-map',
+	devtool: 'source-map',
 	output: {
 		path: `${__dirname}/lib`,
 		filename: outputFile,
 		library: libraryName,
 		libraryTarget: 'umd',
 		umdNamedDefine: true,
-		globalObject: "typeof self !== 'undefined' ? self : this",
+		globalObject: 'this',
 	},
 	module: {
 		rules: [
 			{
-				test: /(\.jsx|\.js)$/,
+				test: /.js$/,
 				loader: 'babel-loader',
-				exclude: /(node_modules|bower_components)/,
+				exclude: /node_modules/,
 			},
 			{
-				test: /(\.jsx|\.js)$/,
+				test: /.js$/,
 				loader: 'eslint-loader',
 				exclude: /node_modules/,
 			},
