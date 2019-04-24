@@ -32,7 +32,7 @@ The validation process consists of two major operations:
 ## Installation
 
 ```
-npm install nano-address-validator --save
+npm install nano-address-validator
 ```
 
 ## Examples
@@ -74,3 +74,6 @@ Checks whether an address is valid.
 #### Returns
 
 - **(_Boolean_)**: Whether the address is valid.
+
+- [Nano Unit Converter](https://github.com/alecrios/nano-unit-converter) - Converts Nano amounts from one unit to another.
+- [Nano URI Generator](https://github.com/alecrios/nano-uri-generator) - Generates Nano URIs for sending amounts, changing representatives, and more.
