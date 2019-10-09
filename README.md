@@ -37,7 +37,7 @@ npm install nano-address-validator
 
 ## API
 
-``` js
+``` ts
 /**
  * Checks whether a Nano address is valid.
  *
@@ -50,6 +50,7 @@ npm install nano-address-validator
  *
  * @returns {boolean} Whether the address is valid.
  */
+export default function (address: string, prefix?: string | string[]): boolean;
 ```
 
 ## Examples
