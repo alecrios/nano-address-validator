@@ -35,45 +35,41 @@ The validation process consists of two major operations:
 npm install nano-address-validator
 ```
 
+## API
+
+``` js
+/**
+ * Checks whether a Nano address is valid.
+ *
+ * @param {string} address The address to check.
+ * @param {string | string[]} [prefix = ['nano', 'xrb']] The allowed prefix(es).
+ *
+ * @throws {Error} Address must be defined.
+ * @throws {TypeError} Address must be a string.
+ * @throws {TypeError} Prefix must be a string or an array of strings.
+ *
+ * @returns {boolean} Whether the address is valid.
+ */
+```
+
 ## Examples
 
-```js
+``` js
 import isValid from 'nano-address-validator';
 
 const nanoAddress = 'nano_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3';
 const bananoAddress = 'ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr';
 
-// Validate Nano address
+// Validate a Nano address.
 isValid(nanoAddress); // true
 
-// Validate Banano address
+// Validate a Banano address.
 isValid(bananoAddress, 'ban'); // true
 
-// Validate Nano/Banano addresses
+// Validate Nano and Banano addresses.
 isValid(nanoAddress, ['ban', 'nano', 'xrb']); // true
 isValid(bananoAddress, ['ban', 'nano', 'xrb']); // true
 ```
-
-## API
-
-### `isValid(address, [prefix = ['nano', 'xrb']])`
-
-Checks whether an address is valid.
-
-#### Arguments
-
-- **address (_String_)**: The address to check.
-- **prefix (_String_|_String[]_)**: The allowed prefix(es).
-
-#### Exceptions
-
-- **Error**: Address must be defined.
-- **TypeError**: Address must be a string.
-- **TypeError**: Prefix must be a string or an array of strings.
-
-#### Returns
-
-- **(_Boolean_)**: Whether the address is valid.
 
 ## See Also
 

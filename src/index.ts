@@ -2,15 +2,18 @@ import blake from 'blakejs';
 import nanoBase32 from 'nano-base32';
 
 /**
- * Checks whether an address is valid.
- * @param {String} address The address to check.
- * @param {String|String[]} [prefix=['nano', 'xrb']] The allowed prefix(es).
+ * Checks whether a Nano address is valid.
+ *
+ * @param {string} address The address to check.
+ * @param {string | string[]} [prefix = ['nano', 'xrb']] The allowed prefix(es).
+ *
  * @throws {Error} Address must be defined.
  * @throws {TypeError} Address must be a string.
  * @throws {TypeError} Prefix must be a string or an array of strings.
- * @returns {Boolean} Whether the address is valid.
+ *
+ * @returns {boolean} Whether the address is valid.
  */
-export default function (address, prefix = ['nano', 'xrb']) {
+export default function (address: string, prefix: string | string[] = ['nano', 'xrb']): boolean {
 	// Ensure the address is provided.
 	if (address === undefined) {
 		throw Error('Address must be defined.');
@@ -21,9 +24,10 @@ export default function (address, prefix = ['nano', 'xrb']) {
 		throw TypeError('Address must be a string.');
 	}
 
-	let allowedPrefixes;
+	/** The array of allowed prefixes. */
+	let allowedPrefixes: string[];
 
-	// Ensure the prefix is valid.
+	// Ensure the prefix(es) is/are valid.
 	if (Array.isArray(prefix)) {
 		if (prefix.some((currentPrefix) => typeof currentPrefix !== 'string')) {
 			throw TypeError('Prefix must be a string or an array of strings.');
@@ -42,9 +46,7 @@ export default function (address, prefix = ['nano', 'xrb']) {
 	);
 
 	// Validate the syntax of the address.
-	if (!pattern.test(address)) {
-		return false;
-	}
+	if (!pattern.test(address)) return false;
 
 	/** The expected checksum as a base32-encoded string. */
 	const expectedChecksum = address.slice(-8);

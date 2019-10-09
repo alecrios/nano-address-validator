@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import isValid from '../lib/nano-address-validator';
+const { expect } = require('chai');
+const isValid = require('../dist/index');
 
 const validAddresses = [
 	'nano_14cuejfpr58epnpxenirusimsrbwxbecin7a3izq1injptecc31qsjwquoe6',
