@@ -1,6 +1,6 @@
 {
 	"name": "nano-address-validator",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "Validates Nano addresses for syntax and checksum integrity",
 	"source": "src/index.ts",
 	"types": "dist/index.d.ts",
